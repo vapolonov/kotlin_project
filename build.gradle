@@ -1,0 +1,41 @@
+plugins {
+  id 'org.jetbrains.kotlin.jvm' version '2.3.0'
+  id 'io.qameta.allure' version '3.0.0'
+}
+
+group = 'java.example'
+version = '1.0-SNAPSHOT'
+
+repositories {
+  mavenCentral()
+}
+
+kotlin {
+  jvmToolchain(21)
+}
+
+configurations {
+  agent {
+    canBeResolved = true
+    canBeConsumed = true
+  }
+}
+
+test {
+  useJUnitPlatform {
+    if (System.getProperty("TAGS")) {
+      includeTags System.getProperty("TAGS")
+    }
+  }
+
+  systemProperties(System.getProperties())
+}
+
+dependencies {
+  implementation "org.junit.jupiter:junit-jupiter:6.0.2"
+  implementation "com.codeborne:selenide:7.14.0"
+  implementation "io.kotest:kotest-assertions-core:6.1.1"
+  implementation "io.qameta.allure:allure-junit5:2.32.0"
+  implementation "net.datafaker:datafaker:2.5.3"
+  agent "org.aspectj:aspectjweaver:1.9.22"
+}
