@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="frontend.ProductsTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2026-03-01T15:02:28.721Z" hostname="PARKAN" time="12.562">
-  <properties/>
-  <testcase name="Проверка заголовка страницы Products" classname="frontend.ProductsTest" time="12.562"/>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[Mar 01, 2026 6:02:29 PM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
-WARNING: Unable to find an exact match for CDP version 145, returning the closest version; found: 144; Please update to a Selenium version that supports CDP version 145
-]]></system-err>
-</testsuite>
