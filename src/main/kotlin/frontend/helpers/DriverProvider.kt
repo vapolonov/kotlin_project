@@ -1,6 +1,5 @@
 package frontend.helpers
 
-import com.codeborne.selenide.Configuration
 import com.codeborne.selenide.WebDriverProvider
 import org.openqa.selenium.Capabilities
 import org.openqa.selenium.chrome.ChromeOptions
@@ -12,19 +11,12 @@ import java.net.URI
 open class DriverProvider: WebDriverProvider {
   private val BROWSER_NAME = System.getProperty("browser", "chrome")
 
-  init {
-    Configuration.baseUrl = "https://google.com"
-    Configuration.timeout = 15_000
-    Configuration.pageLoadStrategy = "normal"
-    Configuration.reopenBrowserOnFail = true
-  }
-
   override fun createDriver(capabilities: Capabilities): RemoteWebDriver {
     return when (BROWSER_NAME) {
       "chrome" -> ChromeOptions().apply {
         setCapability("browserVersion", "128.0")
         setCapability(
-          "moon:options",
+          "selenoid:options",
           mapOf(
             "headless" to false,
             "enableVNC" to true,
