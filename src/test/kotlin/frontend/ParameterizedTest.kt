@@ -1,5 +1,6 @@
 package frontend
 
+import frontend.components.AuthPopup
 import frontend.helpers.BaseUiTest
 import frontend.pages.MainPage
 import io.kotest.matchers.collections.shouldContainAll
@@ -31,9 +32,10 @@ class ParameterizedTest : BaseUiTest() {
   fun testUnsuccessfulLogin(email: String, password: String, message: String) {
     MainPage()
       .openLoginForm()
+      .authPopup()
       .fillLoginForm(email, password)
       .submitLogin()
-    val error = MainPage().getErrorText()
+    val error = AuthPopup().getErrorText()
     error shouldBe message
   }
 
@@ -42,6 +44,7 @@ class ParameterizedTest : BaseUiTest() {
   fun testLogin() {
     MainPage()
       .openLoginForm()
+      .authPopup()
       .fillLoginForm("admin@test.com", "QWE123qwe")
       .submitLogin()
     val isVisible = MainPage().header().checkAvatar()
