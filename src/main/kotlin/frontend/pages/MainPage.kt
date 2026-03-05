@@ -1,22 +1,29 @@
 package frontend.pages
 
-import com.codeborne.selenide.Selenide.`$`
+import com.codeborne.selenide.ElementsCollection
+import com.codeborne.selenide.Selenide.element
+import com.codeborne.selenide.Selenide.elements
 import com.codeborne.selenide.Selenide.open
 import com.codeborne.selenide.SelenideElement
 import frontend.components.AuthPopup
 import frontend.components.Header
+import frontend.components.list.PopularItem
+import frontend.components.list.PopularItems
+import frontend.helpers.Wrappers.Companion.byDataTestGroup
 import frontend.helpers.Wrappers.Companion.byDataTestId
 import io.qameta.allure.Step
 
 open class MainPage {
 
-  private val txtTitle: SelenideElement get() = `$`(byDataTestId("main-image-text"))
-  private val joinBtn: SelenideElement get() = `$`(byDataTestId("nav-link-auth"))
-  private val loginLink: SelenideElement get() = `$`(byDataTestId("create-login"))
+  private val txtTitle: SelenideElement get() = element(byDataTestId("main-image-text"))
+  private val joinBtn: SelenideElement get() = element(byDataTestId("nav-link-auth"))
+  private val loginLink: SelenideElement get() = element(byDataTestId("create-login"))
+  private val listPopularProducts: ElementsCollection get() = elements(byDataTestGroup("product-card"))
 
   @Step("Открыть главную страницу")
-  fun openMainPage() {
+  fun openMainPage(): MainPage {
     open("/")
+    return this
   }
 
   @Step("Получить название кофейни")
@@ -39,5 +46,10 @@ open class MainPage {
     joinBtn.click()
     loginLink.click()
     return this
+  }
+
+  @Step("Получить список популярных товаров")
+  fun getPopularProducts(): List<PopularItem> {
+    return PopularItems(listPopularProducts).getItems()
   }
 }

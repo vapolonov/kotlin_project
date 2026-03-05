@@ -14,7 +14,8 @@ class Header {
 
   @Step("Получить список ссылок в шапке")
   fun clickLink(linkName: String): Header {
-    linksHeader.first { it.text == linkName }.click()
+    val link = linksHeader.find { it.text().contains(linkName) }
+    link?.click()
     return this
   }
 
