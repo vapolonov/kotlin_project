@@ -33,6 +33,9 @@ class ProductsTest : BaseUiTest() {
       .header()
       .clickLink("Products")
 
+    val txtTitle= ProductsPage().getTitle()
+    txtTitle shouldBe "All Products"
+
     val secondProductsItem = ProductsPage()
       .getProductsItems()[1]
 
@@ -55,6 +58,9 @@ class ProductsTest : BaseUiTest() {
     MainPage()
       .header()
       .clickLink("Products")
+
+    val txtTitle= ProductsPage().getTitle()
+    txtTitle shouldBe "All Products"
 
     val fourthProductsItem = ProductsPage()
       .getProductsItems()[3]
