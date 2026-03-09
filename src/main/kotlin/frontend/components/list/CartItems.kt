@@ -2,8 +2,8 @@ package frontend.components.list
 
 import com.codeborne.selenide.ElementsCollection
 import com.codeborne.selenide.SelenideElement
+import frontend.helpers.Extensions.Companion.toMoney
 import frontend.helpers.Wrappers.Companion.byDataTestGroup
-import frontend.helpers.Wrappers.Companion.toMoney
 
 class CartItems(val items: ElementsCollection) {
 

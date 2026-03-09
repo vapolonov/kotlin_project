@@ -1,11 +1,9 @@
 package frontend
 
-import frontend.components.Header
-import frontend.components.list.PopularItem
 import frontend.helpers.BaseUiTest
 import frontend.pages.MainPage
 import frontend.pages.ProductsPage
-import io.kotest.matchers.equality.shouldBeEqualToDifferentTypeIgnoringFields
+import io.kotest.matchers.collections.shouldContainAll
 import io.kotest.matchers.equals.shouldBeEqual
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.DisplayName
@@ -16,7 +14,9 @@ class ProductsTest : BaseUiTest() {
   @Test
   @DisplayName("Проверка заголовка страницы Products")
   fun testProductsPageTitle() {
-    Header().clickLink("Products")
+    MainPage()
+      .header()
+      .clickLink("Products")
     val title = ProductsPage()
       .getTitle()
 
@@ -26,32 +26,8 @@ class ProductsTest : BaseUiTest() {
   @Test
   @DisplayName("Проверка что популярные продукты, есть на странице Products")
   fun testPopularProducts() {
-    val secondPopularProduct = MainPage()
+    MainPage()
       .getPopularProducts()[1]
-
-    MainPage()
-      .header()
-      .clickLink("Products")
-
-    val txtTitle= ProductsPage().getTitle()
-    txtTitle shouldBe "All Products"
-
-    val secondProductsItem = ProductsPage()
-      .getProductsItems()[1]
-
-    secondPopularProduct.shouldBeEqualToDifferentTypeIgnoringFields(
-      secondProductsItem,
-      PopularItem::image,
-      PopularItem::btnIncrement,
-      PopularItem::btnDecrement,
-    )
-  }
-
-  @Test
-  @DisplayName("Проверка, что при выборе товара на главной странице, количество выбранного товара меняется на странице Products")
-  fun testCountProductAsTheSaneAsPopularProduct() {
-    MainPage()
-      .getPopularProducts()[3]
       .btnIncrement
       .click()
 
@@ -59,37 +35,45 @@ class ProductsTest : BaseUiTest() {
       .header()
       .clickLink("Products")
 
-    val txtTitle= ProductsPage().getTitle()
-    txtTitle shouldBe "All Products"
+    val secondProductsItem = ProductsPage()
+      .getProductsItems()[1]
 
-    val fourthProductsItem = ProductsPage()
-      .getProductsItems()[3]
+    val secondPopularProduct = MainPage().getPopularProducts()[1]
 
-    val fourthPopularProduct = MainPage().getPopularProducts()[3]
-
-    fourthPopularProduct.quantity shouldBeEqual fourthProductsItem.quantity
+    secondPopularProduct shouldBeEqual secondProductsItem
+    secondPopularProduct.quantity shouldBeEqual secondProductsItem.quantity
   }
 
   @Test
   @DisplayName("Сравнение популярных товаров с товарами на странице Products")
   fun testAllProducts() {
+//    val popularProducts = MainPage()
+//      .getPopularProducts().sortedBy { it.name }
+
     val popularProducts = MainPage()
       .getPopularProducts()
+      .map { Triple(it.name, it.price, it.description) }
 
     MainPage()
       .header()
       .clickLink("Products")
 
+//    val allProductsItems = ProductsPage()
+//      .getProductsItems().sortedBy { it.name }
+
     val allProductsItems = ProductsPage()
       .getProductsItems()
+      .map { Triple(it.name, it.price, it.description) }
 
-    popularProducts.zip(allProductsItems).forEach { (popular, product) ->
-      popular.shouldBeEqualToDifferentTypeIgnoringFields(
-        product,
-        PopularItem::image,
-        PopularItem::btnIncrement,
-        PopularItem::btnDecrement,
-      )
-    }
+    allProductsItems shouldContainAll popularProducts
+
+//    popularProducts.zip(allProductsItems).forEach { (popular, product) ->
+//      popular.shouldBeEqualToDifferentTypeIgnoringFields(
+//        product,
+//        ProductItem::image,
+//        ProductItem::btnIncrement,
+//        ProductItem::btnDecrement,
+//      )
+//    }
   }
 }

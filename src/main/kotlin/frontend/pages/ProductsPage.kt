@@ -1,10 +1,12 @@
 package frontend.pages
 
+import com.codeborne.selenide.CollectionCondition.sizeGreaterThan
+import com.codeborne.selenide.Condition.visible
 import com.codeborne.selenide.ElementsCollection
 import com.codeborne.selenide.Selenide.element
 import com.codeborne.selenide.Selenide.elements
 import com.codeborne.selenide.SelenideElement
-import frontend.components.list.ProductsItem
+import frontend.components.list.ProductItem
 import frontend.components.list.ProductsItems
 import frontend.helpers.Wrappers.Companion.byDataTestGroup
 import frontend.helpers.Wrappers.Companion.byDataTestId
@@ -17,16 +19,19 @@ class ProductsPage {
 
   @Step("Получить название страницы продуктов")
   fun getTitle(): String {
+    txtTitle.shouldBe(visible)
     return txtTitle.text
   }
 
-  @Step("Получить список продуктов на станице")
+  @Step("Получить список продуктов на странице")
   fun getProducts(): ElementsCollection {
+    listItems.first().shouldBe(visible)
     return listItems
   }
 
   @Step("Получить список продуктов на станице Products в виде объектов")
-  fun getProductsItems(): List<ProductsItem> {
+  fun getProductsItems(): List<ProductItem> {
+    listItems.shouldHave(sizeGreaterThan(0))
     return ProductsItems(listItems).getItems()
   }
 }

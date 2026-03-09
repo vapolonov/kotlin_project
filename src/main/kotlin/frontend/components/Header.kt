@@ -4,8 +4,8 @@ import com.codeborne.selenide.ElementsCollection
 import com.codeborne.selenide.Selenide.element
 import com.codeborne.selenide.Selenide.elements
 import com.codeborne.selenide.SelenideElement
+import frontend.helpers.Extensions.Companion.shouldBeVisible
 import frontend.helpers.Wrappers.Companion.byDataTestGroup
-import frontend.helpers.Wrappers.Companion.shouldBeVisible
 import io.qameta.allure.Step
 
 class Header {

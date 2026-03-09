@@ -2,14 +2,14 @@ package frontend.components.list
 
 import com.codeborne.selenide.ElementsCollection
 import com.codeborne.selenide.SelenideElement
+import frontend.helpers.Extensions.Companion.toMoney
 import frontend.helpers.Wrappers.Companion.byDataTestGroup
-import frontend.helpers.Wrappers.Companion.toMoney
 
 class ProductsItems(val items: ElementsCollection) {
 
-  fun getItems(): List<ProductsItem> {
+  fun getItems(): List<ProductItem> {
     return items
-      .map { ProductsItem(
+      .map { ProductItem(
         image = it.find(byDataTestGroup("product-card-image")),
         name = it.find(byDataTestGroup("product-card-name")).text,
         description = it.find(byDataTestGroup("product-card-description")).text,
@@ -21,7 +21,7 @@ class ProductsItems(val items: ElementsCollection) {
   }
 }
 
-data class ProductsItem(
+data class ProductItem(
   val image: SelenideElement,
   val name: String,
   val description: String,
