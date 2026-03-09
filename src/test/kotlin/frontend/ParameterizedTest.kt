@@ -1,6 +1,5 @@
 package frontend
 
-import frontend.components.AuthPopup
 import frontend.helpers.BaseUiTest
 import frontend.pages.MainPage
 import io.kotest.matchers.collections.shouldContainAll
@@ -30,12 +29,12 @@ class ParameterizedTest : BaseUiTest() {
   )
   @DisplayName("Проверить авторизацию с НЕ корректными данными")
   fun testUnsuccessfulLogin(email: String, password: String, message: String) {
-    MainPage()
+    val error = MainPage()
       .openLoginForm()
       .authPopup()
       .fillLoginForm(email, password)
       .submitLogin()
-    val error = AuthPopup().getErrorText()
+      .getErrorText()
     error shouldBe message
   }
 

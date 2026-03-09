@@ -27,5 +27,6 @@ open class BaseUiTest {
   fun closeBrowser() {
     Selenide.clearBrowserCookies()
     Selenide.clearBrowserLocalStorage()
+    Selenide.closeWebDriver()
   }
 }
