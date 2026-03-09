@@ -8,8 +8,7 @@ import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 
-
-class Test : BaseUiTest() {
+class MainPageTest : BaseUiTest() {
 
   @Test
   @DisplayName("Проверка названия кофейни на главной странице")
