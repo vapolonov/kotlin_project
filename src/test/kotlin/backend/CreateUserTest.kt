@@ -9,14 +9,15 @@ import net.datafaker.Faker
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 
-class CreateUserTest : Controllers(){
+class CreateUserTest : Controllers() {
+  val testData = Faker()
 
   @Test
   @DisplayName("Create new user")
   fun testCreateNewUser() {
-    val username = Faker().credentials().username()
-    val email = Faker().internet().emailAddress()
-    val password = Faker().credentials().password()
+    val username = testData.credentials().username()
+    val email = testData.internet().emailAddress()
+    val password = testData.credentials().password()
 
     val response = users.createUser(username, email, password).getAsObject()
 
@@ -34,8 +35,8 @@ class CreateUserTest : Controllers(){
   @Test
   @DisplayName("Create new user with empty password")
   fun testCreateUserWithoutPassword() {
-    val username = Faker().credentials().username()
-    val email = Faker().internet().emailAddress()
+    val username = testData.credentials().username()
+    val email = testData.internet().emailAddress()
 
     val response = users.createUser(username, email, "").getErrorAsObject<ErrorResponse>()
 
