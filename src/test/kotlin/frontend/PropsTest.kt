@@ -1,9 +1,9 @@
 package frontend
 
+import general.Config.get
 import general.Properties.Companion.properties
 import general.PropertiesHocon.hoconProps
 import general.PropertiesJson.jsonProps
-import general.PropertiesKo.get
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.DisplayName

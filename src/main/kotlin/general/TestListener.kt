@@ -13,7 +13,7 @@ class TestListener : TestExecutionListener {
 
   override fun testPlanExecutionStarted(testPlan: TestPlan) {
     println("<-----Starting Test Plan execution----->")
-    println("Init Configurations").also { PropertiesKo.get }
+    println("Init Configurations").also { Config.get }
 //    println("Init Selenide WebDriver").also { Configuration.browser = DriverProvider::class.java.name }
   }
 
@@ -25,7 +25,7 @@ class TestListener : TestExecutionListener {
     if (testIdentifier.isTest) println("Finished test: ${testIdentifier.displayName} - Reason: ${testExecutionResult.status}")
     if (testExecutionResult.status == TestExecutionResult.Status.FAILED) {
       attachScreenshot()
-      browserConsoleLogs()
+//      browserConsoleLogs()
     }
   }
 

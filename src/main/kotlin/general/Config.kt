@@ -1,9 +1,8 @@
 package general
 
-import java.io.FileInputStream
 import java.util.Properties
 
-object PropertiesKo {
+object Config {
 
   val get: PropsModel by lazy {
     val env = System.getProperty("env", "tst")
@@ -11,7 +10,7 @@ object PropertiesKo {
 //    val props = Properties().apply { load(FileInputStream("src/main/resources/$fileName")) }
     val props = Properties().apply {
       val stream =
-        PropertiesKo::class.java.getResourceAsStream(fileName) ?: throw IllegalStateException("Properties file not found")
+        Config::class.java.getResourceAsStream(fileName) ?: throw IllegalStateException("Properties file not found")
       stream.use { load(it) }
     }
 
