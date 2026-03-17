@@ -5,6 +5,7 @@ import backend.api.models.users.CreateUserRequest
 import backend.api.models.users.CreateUserResponse
 import backend.api.models.users.DeleteUserResponse
 import io.qameta.allure.Step
+import okhttp3.ResponseBody
 import retrofit2.Response
 
 class UsersController : Endpoints() {
@@ -15,8 +16,8 @@ class UsersController : Endpoints() {
   }
 
   @Step("Delete user by id")
-  fun deleteUserById(id: Int): Response<DeleteUserResponse> {
-    return usersApi.deleteUser(id).execute()
+  fun deleteUserById(token: String, id: Int): Response<ResponseBody> {
+    return usersApi.deleteUser(token, id).execute()
   }
 
 }

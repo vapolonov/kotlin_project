@@ -24,12 +24,11 @@ class CreateUserTest : Controllers() {
     response.username shouldBe username
     response.email shouldBe email
 
-    val responseDelete = users.deleteUserById(response.id).getAsObject()
-    responseDelete.code shouldBe 200
-    responseDelete.message shouldBe "User with id '${response.id}' was successfully deleted"
-//    Response body is null or cannot be cast to the specified type: body: null | errorBody: {
-//    "code": 401,
-//    "reason": "The token is invalid."
+    val login = auth.login(response.email, password).getAsObject()
+
+    val delete = users.deleteUserById("Bearer ${login.accessToken}", response.id)
+
+    delete.code() shouldBe 200
   }
 
   @Test
