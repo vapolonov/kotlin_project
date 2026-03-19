@@ -48,5 +48,10 @@ class Extensions {
       } while ((res.getAsObject() as List<*>).isNotEmpty())
       return res
     }
+
+    @Step("String to Bearer token")
+    fun String.toBearer(): String {
+      return "Bearer $this"
+    }
   }
 }

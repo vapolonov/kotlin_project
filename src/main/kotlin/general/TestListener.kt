@@ -1,5 +1,9 @@
 package general
 
+import backend.api.extensions.Extensions.Companion.getAsObject
+import backend.controllers.Controllers
+import backend.helpers.AuthorizationHelper
+import backend.helpers.GarbageCollector
 import com.codeborne.selenide.Screenshots
 import com.codeborne.selenide.Selenide
 import io.qameta.allure.Attachment
@@ -9,7 +13,8 @@ import org.junit.platform.launcher.TestIdentifier
 import org.junit.platform.launcher.TestPlan
 import org.openqa.selenium.logging.LogType.BROWSER
 
-class TestListener : TestExecutionListener {
+class TestListener : Controllers(), TestExecutionListener {
+  val authHelper = AuthorizationHelper()
 
   override fun testPlanExecutionStarted(testPlan: TestPlan) {
     println("<-----Starting Test Plan execution----->")
@@ -25,12 +30,21 @@ class TestListener : TestExecutionListener {
     if (testIdentifier.isTest) println("Finished test: ${testIdentifier.displayName} - Reason: ${testExecutionResult.status}")
     if (testExecutionResult.status == TestExecutionResult.Status.FAILED) {
       attachScreenshot()
-//      browserConsoleLogs()
     }
   }
 
   override fun testPlanExecutionFinished(testPlan: TestPlan) {
     Selenide.closeWebDriver()
+    println("<-----Garbage Collector----->")
+    GarbageCollector.users.forEach { id ->
+    // users.deleteUserById(authHelper.getAdminToken(), id = id).also { println("Deleted User: $id") }
+      val user = users.getUserById(authHelper.getAdminToken(), id).getAsObject()
+
+      if (user.email.endsWith("@autotest.com")) {
+        users.deleteUserById(authHelper.getAdminToken(), id)
+        println("Deleted User: $id")
+      }
+    }
     println("<-----Finished Test Plan execution----->")
   }
 
