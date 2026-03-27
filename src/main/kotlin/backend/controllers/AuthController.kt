@@ -9,7 +9,7 @@ import retrofit2.Response
 class AuthController : Endpoints() {
 
   @Step("Login with email: {email} and password {password}")
-  fun login(email: String, password: String): Response<LoginResponse> {
+  fun login(email: String?, password: String?): Response<LoginResponse> {
     return authApi.postLogin(body = LoginRequest(email = email, password = password)).execute()
   }
 }

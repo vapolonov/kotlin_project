@@ -14,6 +14,8 @@ import retrofit2.http.Header
 import retrofit2.http.POST
 import retrofit2.http.PUT
 import retrofit2.http.Path
+import retrofit2.http.Query
+import java.time.ZoneOffset
 
 interface UsersEndpoints {
 
@@ -29,12 +31,20 @@ interface UsersEndpoints {
   @DELETE("users/{id}")
   fun deleteUser(
     @Header(Headers.AUTHORIZATION) token : String,
-    @Path("id") id : Int) : Call<ResponseBody>
+    @Path("id") id : Int
+  ) : Call<ResponseBody>
 
   @PUT("users/{id}")
   fun updateUser(
     @Header(Headers.AUTHORIZATION) token: String,
     @Path("id") id: Int,
-    @Body body: UpdateUserRequest
+    @Body body: UpdateUserRequest,
   ) : Call<UpdateUserResponse>
+
+  @GET("users/")
+  fun getAllUsers(
+    @Header(Headers.AUTHORIZATION) token: String,
+    @Query("offset") offset: Int,
+    @Query("limit") limit: Int,
+  ) : Call<List<CreateUserResponse>>
 }

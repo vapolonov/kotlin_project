@@ -1,6 +1,7 @@
 package backend.api.extensions
 
 import com.google.gson.Gson
+import io.kotest.assertions.AssertionErrorBuilder.Companion.fail
 import io.qameta.allure.Step
 import org.junit.jupiter.api.Assertions.fail
 import retrofit2.Call
@@ -8,6 +9,12 @@ import retrofit2.Response
 
 class Extensions {
   companion object {
+
+    @Step("Check if response is successful")
+    fun <T> Response<T>.checkIsSuccessful(): Boolean {
+      if (!this.isSuccessful) fail("Response was not successful: code=${code()}")
+      return true
+    }
 
     @Step("Get response body as object of type {T}")
     inline fun <reified T> Response<T>.getAsObject(): T {

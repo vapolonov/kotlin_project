@@ -37,12 +37,11 @@ class TestListener : Controllers(), TestExecutionListener {
     Selenide.closeWebDriver()
     println("<-----Garbage Collector----->")
     GarbageCollector.users.forEach { id ->
-    // users.deleteUserById(authHelper.getAdminToken(), id = id).also { println("Deleted User: $id") }
-      val user = users.getUserById(authHelper.getAdminToken(), id).getAsObject()
-
+      users.deleteUserById(authHelper.getAdminToken(), id = id).also { println("Deleted User: $id") }
+    }
+    users.getAllUsers(token = authHelper.getAdminToken(), offset = 1, limit = 50).getAsObject().forEach { user ->
       if (user.email.endsWith("@autotest.com")) {
-        users.deleteUserById(authHelper.getAdminToken(), id)
-        println("Deleted User: $id")
+        users.deleteUserById(authHelper.getAdminToken(), id = user.id).also { println("Deleted User: ${user.email}") }
       }
     }
     println("<-----Finished Test Plan execution----->")
