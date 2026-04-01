@@ -4,6 +4,7 @@ import backend.api.extensions.Extensions.Companion.getAsObject
 import backend.controllers.Controllers
 import backend.helpers.AuthorizationHelper
 import backend.helpers.GarbageCollector
+import backend.helpers.ProductsHelper
 import com.codeborne.selenide.Screenshots
 import com.codeborne.selenide.Selenide
 import io.qameta.allure.Attachment
@@ -15,11 +16,13 @@ import org.openqa.selenium.logging.LogType.BROWSER
 
 class TestListener : Controllers(), TestExecutionListener {
   val authHelper = AuthorizationHelper()
+  val productsHelper = ProductsHelper()
 
   override fun testPlanExecutionStarted(testPlan: TestPlan) {
     println("<-----Starting Test Plan execution----->")
     println("Init Configurations").also { Config.get }
 //    println("Init Selenide WebDriver").also { Configuration.browser = DriverProvider::class.java.name }
+    productsHelper.createProducts(5).sortedBy { it.name }
   }
 
   override fun executionSkipped(testIdentifier: TestIdentifier, reason: String) {
@@ -43,6 +46,9 @@ class TestListener : Controllers(), TestExecutionListener {
       if (user.email.endsWith("@autotest.com")) {
         users.deleteUserById(authHelper.getAdminToken(), id = user.id).also { println("Deleted User: ${user.email}") }
       }
+    }
+    GarbageCollector.products.forEach { id ->
+      products.deleteProductById(authHelper.getAdminToken(), id = id).also { println("Deleted product: $id") }
     }
     println("<-----Finished Test Plan execution----->")
   }

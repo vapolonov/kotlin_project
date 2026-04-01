@@ -1,4 +1,4 @@
-package frontend
+package frontend.cart
 
 import frontend.components.CartPopup
 import frontend.components.list.ProductItem

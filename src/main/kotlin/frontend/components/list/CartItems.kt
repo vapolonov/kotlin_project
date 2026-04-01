@@ -1,14 +1,15 @@
 package frontend.components.list
 
-import com.codeborne.selenide.ElementsCollection
+import com.codeborne.selenide.Selenide.elements
 import com.codeborne.selenide.SelenideElement
 import frontend.helpers.Extensions.Companion.toMoney
 import frontend.helpers.Wrappers.Companion.byDataTestGroup
 
-class CartItems(val items: ElementsCollection) {
+class CartItems {
+  private val listCartProducts get() = elements(byDataTestGroup("cart-item"))
 
   fun getItems(): List<CartItem> {
-    return items
+    return listCartProducts
       .map { CartItem(
         image = it.find(byDataTestGroup("cart-item-image")),
         name = it.find(byDataTestGroup("cart-item-name")).text,

@@ -1,4 +1,4 @@
-package frontend
+package frontend.auth
 
 import frontend.helpers.BaseUiTest
 import frontend.pages.MainPage

@@ -6,4 +6,5 @@ open class Endpoints {
 
     protected val authApi: AuthEndpoints by lazy { RetrofitClient.createService(AuthEndpoints::class.java) }
     protected val usersApi: UsersEndpoints by lazy { RetrofitClient.createService(UsersEndpoints::class.java) }
+    protected val productsApi: ProductsEndpoints by lazy { RetrofitClient.createService(ProductsEndpoints::class.java) }
 }

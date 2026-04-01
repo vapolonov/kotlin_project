@@ -59,6 +59,6 @@ open class MainPage {
   @Step("Получить список популярных товаров")
   fun getPopularProducts(): List<ProductItem> {
     listPopularProducts.shouldHave(sizeGreaterThan(0))
-    return ProductsItems(listPopularProducts).getItems()
+    return ProductsItems().getItems()
   }
 }
