@@ -13,7 +13,7 @@ import org.junit.jupiter.api.Test
 class DbCreateUserTest : BaseUiTest() {
 
   @Test
-  @DisplayName("Создание пользователя через UI и проверка через БД")
+  @DisplayName("Создание пользователя через UI и проверка через БД -> JDBC")
   fun checkDBCreateUser() {
     val email = "${randomEmailPrefix()}@autotest.com"
 
@@ -34,7 +34,7 @@ class DbCreateUserTest : BaseUiTest() {
   }
 
   @Test
-  @DisplayName("Создание пользователя через UI и проверка через БД")
+  @DisplayName("Создание пользователя через UI и проверка через БД -> Kotlin JDBC")
   fun checkDBCreateUserKotlin() {
     val email = "${randomEmailPrefix()}@autotest.com"
 
@@ -55,7 +55,7 @@ class DbCreateUserTest : BaseUiTest() {
   }
 
   @Test
-  @DisplayName("Создание пользователя через UI и проверка через БД")
+  @DisplayName("Создание пользователя через UI и проверка через БД -> Exposed")
   fun checkDBCreateUserExposed() {
     val email = "${randomEmailPrefix()}@autotest.com"
 
