@@ -22,7 +22,7 @@ class TestListener : Controllers(), TestExecutionListener {
     println("<-----Starting Test Plan execution----->")
     println("Init Configurations").also { Config.get }
 //    println("Init Selenide WebDriver").also { Configuration.browser = DriverProvider::class.java.name }
-    productsHelper.createProducts(5).sortedBy { it.name }
+//    productsHelper.createProducts(5).sortedBy { it.name }
   }
 
   override fun executionSkipped(testIdentifier: TestIdentifier, reason: String) {
