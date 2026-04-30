@@ -3,6 +3,7 @@ package backend.api.extensions
 import com.google.gson.Gson
 import io.kotest.assertions.AssertionErrorBuilder.Companion.fail
 import io.qameta.allure.Step
+import org.junit.jupiter.api.Assertions.fail
 import retrofit2.Call
 import retrofit2.Response
 

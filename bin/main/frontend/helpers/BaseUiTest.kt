@@ -15,11 +15,11 @@ open class BaseUiTest {
       Configuration.reopenBrowserOnFail = true
       Configuration.baseUrl = "http://localhost:4000"
 
-      Configuration.browser = DriverProvider::class.java.name
-      Configuration.baseUrl = "https://google.com"
-      Configuration.timeout = 15_000
-      Configuration.pageLoadStrategy = "normal"
-      Configuration.reopenBrowserOnFail = true
+//      Configuration.browser = DriverProvider::class.java.name
+//      Configuration.baseUrl = "https://google.com"
+//      Configuration.timeout = 15_000
+//      Configuration.pageLoadStrategy = "normal"
+//      Configuration.reopenBrowserOnFail = true
     }
   }
 
